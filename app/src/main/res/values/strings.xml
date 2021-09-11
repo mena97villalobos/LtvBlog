@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LtvBlog</string>
+    <string name="title_blogs">Blogs</string>
+    <string name="title_map">Map</string>
+    <string name="title_blog_details">Blog</string>
+    <string name="blog_image">Blog Image</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.mena97villalobos.ltvblog.ui.blogs.BlogsFragment"
+        android:label="@string/title_blogs"
+        tools:layout="@layout/fragment_blogs" >
+        <action
+            android:id="@+id/action_navigation_home_to_blogDetailsFragment"
+            app:destination="@id/blogDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.mena97villalobos.ltvblog.ui.map.MapFragment"
+        android:label="@string/title_map"
+        tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/blogDetailsFragment"
+        android:name="com.mena97villalobos.ltvblog.ui.blogdetails.BlogDetailsFragment"
+        android:label="@string/title_blog_details"
+        tools:layout="@layout/fragment_blog_details" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
+</navigation>

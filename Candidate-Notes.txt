@@ -1,0 +1,17 @@
+I used the following links to solve this challenge:
+
+- Making HTTP Request without third party libraries
+    - I use this article to create a GET request for the articles
+    - https://mobikul.com/android-create-http-request-without-library/
+
+- Allow the app to open unsafe urls
+    - Links to the articles are not encrypted so android prevents opening the URL
+    - Adding this to the manifest might cause security issues
+    - https://stackoverflow.com/questions/52707918/webview-showing-err-cleartext-not-permitted-although-site-is-https
+
+- Avoid opening the browser app and force the WebView to display content in the app
+    - https://stackoverflow.com/questions/13321510/prevent-webview-from-opening-the-browser/13321585
+
+- Mapping a JSON string to a Kotlin Model
+    - I got the basic idea of how to do it from here
+    - https://johncodeos.com/how-to-parse-json-in-android-using-kotlin/
