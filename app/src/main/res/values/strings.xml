@@ -4,4 +4,8 @@
     <string name="title_map">Map</string>
     <string name="title_blog_details">Blog</string>
     <string name="blog_image">Blog Image</string>
+    <plurals name="geocoder_results">
+        <item quantity="one">Found 1 result</item>
+        <item quantity="other">Found %1$s results</item>
+    </plurals>
 </resources>
