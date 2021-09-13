@@ -4,4 +4,14 @@
     <string name="title_map">Map</string>
     <string name="title_blog_details">Blog</string>
     <string name="blog_image">Blog Image</string>
+    <string name="location_denied">You need to allow location access to use this functionality!</string>
+    <string name="permissions_rationale_title">Location Permission Needed</string>
+    <string name="permissions_rationale_message">This app needs the Location permission, please accept to use location functionality</string>
+    <string name="my_position">My Position</string>
+    <string name="geocoder_result">Found %1$f results</string>
+    <string name="empty_results_title">No results found!</string>
+    <string name="empty_results_message">Try another query!</string>
+
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>
