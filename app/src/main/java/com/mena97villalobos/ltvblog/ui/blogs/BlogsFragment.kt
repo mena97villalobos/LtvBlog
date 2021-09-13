@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mena97villalobos.ltvblog.databinding.FragmentBlogsBinding
-import com.mena97villalobos.ltvblog.model.Blog
+import com.mena97villalobos.ltvblog.data.model.Blog
 import com.mena97villalobos.ltvblog.ui.blogs.adapter.BlogAdapter
 
 class BlogsFragment : Fragment() {
