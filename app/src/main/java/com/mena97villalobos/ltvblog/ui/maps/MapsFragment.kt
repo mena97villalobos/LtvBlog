@@ -2,7 +2,6 @@ package com.mena97villalobos.ltvblog.ui.maps
 
 import android.Manifest
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
@@ -27,6 +26,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import com.mena97villalobos.ltvblog.R
 import com.mena97villalobos.ltvblog.databinding.FragmentMapsBinding
+import com.mena97villalobos.ltvblog.utils.showLocationDeniedSnackBar
+import com.mena97villalobos.ltvblog.utils.showRationaleAlertDialog
 
 
 class MapsFragment : Fragment() {
@@ -70,21 +71,7 @@ class MapsFragment : Fragment() {
         mapFragment?.getMapAsync(callback)
     }
 
-    private fun showLocationDeniedSnackBar() {
-        val snackbar = Snackbar.make(
-            binding.root,
-            "You need to allow location access to use this functionality!",
-            Snackbar.LENGTH_LONG
-        )
-        snackbar.show()
-        snackbar.addCallback(object : Snackbar.Callback() {
-            override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                super.onDismissed(transientBottomBar, event)
-                this@MapsFragment.findNavController()
-                    .navigate(MapsFragmentDirections.actionNavigationDashboardToNavigationHome())
-            }
-        })
-    }
+
 
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
@@ -144,31 +131,21 @@ class MapsFragment : Fragment() {
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 )
             ) {
-                showRationaleAlertDialog()
+                showRationaleAlertDialog(
+                    requireContext(),
+                    { requestLocationPermission() },
+                    {
+                        this@MapsFragment.findNavController().navigate(
+                            MapsFragmentDirections.actionNavigationDashboardToNavigationHome()
+                        )
+                    }
+                )
             } else {
                 requestLocationPermission()
             }
         } else {
             onPermissionGranted()
         }
-    }
-
-    private fun showRationaleAlertDialog() {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Location Permission Needed")
-            .setMessage("This app needs the Location permission, please accept to use location functionality")
-            .setPositiveButton(
-                "OK"
-            ) { _, _ ->
-                //Prompt the user once explanation has been shown
-                requestLocationPermission()
-            }
-            .setNegativeButton("Cancel") { _, _ ->
-                this@MapsFragment.findNavController()
-                    .navigate(MapsFragmentDirections.actionNavigationDashboardToNavigationHome())
-            }
-            .create()
-            .show()
     }
 
     private fun requestLocationPermission() {
@@ -192,7 +169,13 @@ class MapsFragment : Fragment() {
                 if (fineLocationGranted() && coarseLocationGranted()) {
                     onPermissionGranted()
                 } else {
-                    showLocationDeniedSnackBar()
+                    showLocationDeniedSnackBar(
+                        binding.root,
+                        requireContext(),
+                    ) {
+                        this@MapsFragment.findNavController()
+                            .navigate(MapsFragmentDirections.actionNavigationDashboardToNavigationHome())
+                    }
                 }
             }
         }
