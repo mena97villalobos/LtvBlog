@@ -1,4 +1,4 @@
-package com.mena97villalobos.ltvblog.ui.map
+package com.mena97villalobos.ltvblog.ui.maps
 
 import androidx.lifecycle.ViewModel
 
