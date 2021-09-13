@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mena97villalobos.ltvblog.databinding.BlogItemBinding
-import com.mena97villalobos.ltvblog.model.Blog
-import com.mena97villalobos.ltvblog.network.BlogsNetwork
+import com.mena97villalobos.ltvblog.data.model.Blog
+import com.mena97villalobos.ltvblog.data.network.BlogsNetwork
 
 class BlogAdapter(private val onClickListener: (Blog) -> Unit) :
     ListAdapter<Blog, BlogAdapter.BlogViewHolder>(BlogDiffCallback()) {

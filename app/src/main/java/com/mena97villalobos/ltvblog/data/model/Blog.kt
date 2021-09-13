@@ -1,4 +1,4 @@
-package com.mena97villalobos.ltvblog.model
+package com.mena97villalobos.ltvblog.data.model
 
 import android.graphics.Bitmap
 import java.text.SimpleDateFormat

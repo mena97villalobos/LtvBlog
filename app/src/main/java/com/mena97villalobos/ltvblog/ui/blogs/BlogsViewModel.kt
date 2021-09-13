@@ -4,14 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mena97villalobos.ltvblog.model.Blog
-import com.mena97villalobos.ltvblog.network.BlogsNetwork
+import com.mena97villalobos.ltvblog.data.model.Blog
+import com.mena97villalobos.ltvblog.data.network.BlogsNetwork
+import com.mena97villalobos.ltvblog.data.repository.BlogsRepositoryImpl
+import com.mena97villalobos.ltvblog.data.usecases.BlogsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 
 class BlogsViewModel : ViewModel() {
+
+    private val blogsUseCase: BlogsUseCase = BlogsUseCase(BlogsRepositoryImpl())
 
     private val _blogs = MutableLiveData<List<Blog>?>()
     val blogs: LiveData<List<Blog>?>
@@ -24,7 +28,7 @@ class BlogsViewModel : ViewModel() {
     fun getAllBlogs() =
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                _blogs.postValue(BlogsNetwork.getAllBlogs())
+                _blogs.postValue(blogsUseCase.execute())
             }
         }
 }

@@ -1,8 +1,8 @@
-package com.mena97villalobos.ltvblog.network
+package com.mena97villalobos.ltvblog.data.network
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import com.mena97villalobos.ltvblog.model.Blog
+import com.mena97villalobos.ltvblog.data.model.Blog
 import org.json.JSONObject
 import org.json.JSONTokener
 import java.net.HttpURLConnection
