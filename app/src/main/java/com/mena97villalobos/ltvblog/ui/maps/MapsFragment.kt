@@ -104,7 +104,7 @@ class MapsFragment : Fragment() {
                     map.addMarker(
                         MarkerOptions()
                             .position(currentPos)
-                            .title("My Position")
+                            .title(getString(R.string.my_position))
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                     )?.let { marker ->
                         currentLocationMarker = marker
