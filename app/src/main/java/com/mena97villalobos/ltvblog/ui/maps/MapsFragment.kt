@@ -2,6 +2,7 @@ package com.mena97villalobos.ltvblog.ui.maps
 
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
@@ -195,10 +196,14 @@ class MapsFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 hideKeyboard()
                 val results = geocoder.getFromLocationName(query, 5)
-                showResultsSnackbar(results.size)
-                results.forEach {
-                    val currentPos = LatLng(it.latitude, it.longitude)
-                    map.addMarker(MarkerOptions().position(currentPos).title(it.featureName))
+                if (results.isEmpty()) {
+                    showEmptyResultsDialog()
+                } else {
+                    showResultsSnackbar(results.size)
+                    results.forEach {
+                        val currentPos = LatLng(it.latitude, it.longitude)
+                        map.addMarker(MarkerOptions().position(currentPos).title(it.featureName))
+                    }
                 }
                 return true
             }
@@ -213,10 +218,19 @@ class MapsFragment : Fragment() {
         })
     }
 
+    private fun showEmptyResultsDialog() {
+        AlertDialog.Builder(context)
+            .setTitle(R.string.empty_results_title)
+            .setMessage(R.string.empty_results_message)
+            .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
+            .create()
+            .show()
+    }
+
     private fun showResultsSnackbar(resultsSize: Int) =
         Snackbar.make(
             binding.root,
-            resources.getQuantityString(R.plurals.geocoder_results, resultsSize),
+            getString(R.string.geocoder_result, resultsSize),
             Snackbar.LENGTH_LONG
         ).show()
 
