@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
-
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.mena97villalobos.ltvblog.ui.blogs.BlogsFragment"
@@ -14,12 +13,6 @@
             android:id="@+id/action_navigation_home_to_blogDetailsFragment"
             app:destination="@id/blogDetailsFragment" />
     </fragment>
-
-    <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.mena97villalobos.ltvblog.ui.map.MapFragment"
-        android:label="@string/title_map"
-        tools:layout="@layout/fragment_map" />
     <fragment
         android:id="@+id/blogDetailsFragment"
         android:name="com.mena97villalobos.ltvblog.ui.blogdetails.BlogDetailsFragment"
@@ -28,5 +21,15 @@
         <argument
             android:name="url"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_maps"
+        android:name="com.mena97villalobos.ltvblog.ui.maps.MapsFragment"
+        android:label="@string/title_map"
+        tools:layout="@layout/fragment_maps" >
+        <action
+            android:id="@+id/action_navigation_dashboard_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
