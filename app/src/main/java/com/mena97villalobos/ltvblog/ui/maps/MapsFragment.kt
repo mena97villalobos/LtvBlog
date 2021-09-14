@@ -65,9 +65,7 @@ class MapsFragment : Fragment() {
             maxWaitTime = 60
         }
 
-    /**
-     * Location callback to update current user position on the map
-     */
+    /** Location callback to update current user position on the map */
     private val locationCallback: LocationCallback =
         object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
@@ -165,8 +163,8 @@ class MapsFragment : Fragment() {
     }
 
     /**
-     * Checks if user has the location services turned on
-     * If not calls [showOpenSettingsDialog] to turn on location
+     * Checks if user has the location services turned on If not calls [showOpenSettingsDialog] to
+     * turn on location
      */
     private fun checkLocationProviderAvailability() {
         val locationManager =
@@ -233,8 +231,7 @@ class MapsFragment : Fragment() {
                                 MarkerOptions()
                                     .position(currentPos)
                                     .title(it.featureName)
-                                    .icon(BitmapDescriptorFactory.fromBitmap(redPinBitmap))
-                            )
+                                    .icon(BitmapDescriptorFactory.fromBitmap(redPinBitmap)))
                         }
                     }
                     return true
