@@ -12,6 +12,9 @@
     <string name="empty_results_title">No results found!</string>
     <string name="empty_results_message">Try another query!</string>
 
+    <string name="location_off_title">Please turn on your location</string>
+    <string name="location_off_message">This app needs the location service enable, please turn it on</string>
+
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 </resources>

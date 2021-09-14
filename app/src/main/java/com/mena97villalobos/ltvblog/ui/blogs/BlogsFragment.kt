@@ -9,8 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mena97villalobos.ltvblog.databinding.FragmentBlogsBinding
 import com.mena97villalobos.ltvblog.data.model.Blog
+import com.mena97villalobos.ltvblog.databinding.FragmentBlogsBinding
 import com.mena97villalobos.ltvblog.ui.blogs.adapter.BlogAdapter
 
 class BlogsFragment : Fragment() {
@@ -31,8 +31,7 @@ class BlogsFragment : Fragment() {
         return binding.root
     }
 
-    private fun initializeData() =
-        viewModel.getAllBlogs()
+    private fun initializeData() = viewModel.getAllBlogs()
 
     private fun setupObservers() {
         viewModel.blogs.observe(viewLifecycleOwner) {
@@ -46,10 +45,14 @@ class BlogsFragment : Fragment() {
 
     private fun setupAdapter(blogs: List<Blog>) {
         val adapter = BlogAdapter {
-            findNavController().navigate(BlogsFragmentDirections.actionNavigationHomeToBlogDetailsFragment(it.articleLink))
+            findNavController()
+                .navigate(
+                    BlogsFragmentDirections.actionNavigationHomeToBlogDetailsFragment(
+                        it.articleLink))
         }
         adapter.submitList(blogs)
         binding.blogList.adapter = adapter
-        binding.blogList.addItemDecoration(DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+        binding.blogList.addItemDecoration(
+            DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
     }
 }
