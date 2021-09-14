@@ -41,8 +41,16 @@ fun checkCoarseLocationPermission(context: Context) =
     ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) ==
         PackageManager.PERMISSION_GRANTED
 
+/**
+ * Helper function that checks [Manifest.permission.ACCESS_FINE_LOCATION] and
+ * [Manifest.permission.ACCESS_COARSE_LOCATION] at the same time
+ */
 fun checkLocationPermission(context: Context) =
     checkFineLocationPermission(context) && checkCoarseLocationPermission(context)
 
+/**
+ * Checks if the app needs to show a rational dialog explaining the user why a permission is needed
+ * @param permission: Permission to check if the rationale is needed
+ */
 fun shouldShowPermissionRationale(activity: Activity, permission: String): Boolean =
     ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)
