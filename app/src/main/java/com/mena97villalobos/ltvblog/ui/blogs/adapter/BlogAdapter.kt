@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.mena97villalobos.ltvblog.databinding.BlogItemBinding
 import com.mena97villalobos.ltvblog.data.model.Blog
 import com.mena97villalobos.ltvblog.data.network.BlogsNetwork
+import com.mena97villalobos.ltvblog.databinding.BlogItemBinding
 
 class BlogAdapter(private val onClickListener: (Blog) -> Unit) :
     ListAdapter<Blog, BlogAdapter.BlogViewHolder>(BlogDiffCallback()) {
@@ -25,12 +25,7 @@ class BlogAdapter(private val onClickListener: (Blog) -> Unit) :
         companion object {
             fun from(parent: ViewGroup): BlogViewHolder =
                 BlogViewHolder(
-                    BlogItemBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
-                )
+                    BlogItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
         }
 
         fun bind(item: Blog, onClickListener: (Blog) -> Unit) {
@@ -51,16 +46,16 @@ class BlogAdapter(private val onClickListener: (Blog) -> Unit) :
                 resetImageViews()
             } else {
                 Thread {
-                    item.imageBitmap = BlogsNetwork.downloadImage(item.getResizedImageURL())
+                        item.imageBitmap = BlogsNetwork.downloadImage(item.getResizedImageURL())
 
-                    binding.blogImage.post {
-                        binding.blogImage.setImageBitmap(item.imageBitmap)
-                        resetImageViews()
+                        binding.blogImage.post {
+                            binding.blogImage.setImageBitmap(item.imageBitmap)
+                            resetImageViews()
+                        }
                     }
-                }.start()
+                    .start()
             }
         }
-
     }
 }
 
@@ -69,5 +64,4 @@ class BlogDiffCallback : DiffUtil.ItemCallback<Blog>() {
         oldItem.uuid == newItem.uuid
 
     override fun areContentsTheSame(oldItem: Blog, newItem: Blog): Boolean = oldItem == newItem
-
 }
