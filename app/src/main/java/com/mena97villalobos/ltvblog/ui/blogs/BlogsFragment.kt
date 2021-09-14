@@ -31,8 +31,6 @@ class BlogsFragment : Fragment() {
         return binding.root
     }
 
-    private fun initializeData() = viewModel.getAllBlogs()
-
     private fun setupObservers() {
         viewModel.blogs.observe(viewLifecycleOwner) {
             if (it != null) {
@@ -43,8 +41,14 @@ class BlogsFragment : Fragment() {
         }
     }
 
+    /**
+     * After all the observers have been setup fetch blogs data using the view model
+     */
+    private fun initializeData() = viewModel.getAllBlogs()
+
     private fun setupAdapter(blogs: List<Blog>) {
         val adapter = BlogAdapter {
+            // Call back to launch the blog details fragment and show the blog in a web view
             findNavController()
                 .navigate(
                     BlogsFragmentDirections.actionNavigationHomeToBlogDetailsFragment(

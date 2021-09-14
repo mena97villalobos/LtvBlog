@@ -56,6 +56,10 @@ class MapsFragment : Fragment() {
             priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
             maxWaitTime = 60
         }
+
+    /**
+     * Location callback to update current user position on the map
+     */
     private val locationCallback: LocationCallback =
         object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
@@ -63,11 +67,16 @@ class MapsFragment : Fragment() {
                 if (locationList.isNotEmpty() && this@MapsFragment::map.isInitialized) {
                     locationList.last().let {
                         val currentPos = LatLng(it.latitude, it.longitude)
+
+                        // Remove last location marker, update camera position if this is the
+                        // first time a marker is being added
                         if (this@MapsFragment::currentLocationMarker.isInitialized) {
                             currentLocationMarker.remove()
                         } else {
                             map.moveCamera(CameraUpdateFactory.newLatLng(currentPos))
                         }
+
+                        // Add a marker to the map and update current location marker
                         map.addMarker(
                                 MarkerOptions()
                                     .position(currentPos)
@@ -80,6 +89,7 @@ class MapsFragment : Fragment() {
                 }
             }
         }
+
     private val callbackGoogleMapReady = OnMapReadyCallback { googleMap ->
         map = googleMap
         map.uiSettings.isZoomControlsEnabled = true
@@ -104,6 +114,9 @@ class MapsFragment : Fragment() {
         mapFragment?.getMapAsync(callbackGoogleMapReady)
     }
 
+    /*
+     * Stop listening for location updates when the lifecycle passes to the onPause state
+     */
     override fun onPause() {
         super.onPause()
         if (checkLocationPermission(requireContext())) {
@@ -111,6 +124,9 @@ class MapsFragment : Fragment() {
         }
     }
 
+    /*
+     * Start listening for location updates when the lifecycle passes to the onResume state
+     */
     override fun onResume() {
         super.onResume()
         checkLocationProviderAvailability()
@@ -142,6 +158,10 @@ class MapsFragment : Fragment() {
         }
     }
 
+    /**
+     * Checks if user has the location services turned on
+     * If not calls [showOpenSettingsDialog] to turn on location
+     */
     private fun checkLocationProviderAvailability() {
         val locationManager =
             requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager

@@ -45,6 +45,13 @@ class BlogAdapter(private val onClickListener: (Blog) -> Unit) :
                 binding.blogImage.setImageBitmap(item.imageBitmap)
                 resetImageViews()
             } else {
+                /*
+                 * Launch a thread to download the blog image when the blog is
+                 * being bind into the view holder. We need to use post over the
+                 * blogImage to launch an UI thread to set image after is downloaded
+                 * I didn't use coroutines cause I was getting a warning for the HTTP
+                 * request methods
+                 */
                 Thread {
                         item.imageBitmap = BlogsNetwork.downloadImage(item.getResizedImageURL())
 
