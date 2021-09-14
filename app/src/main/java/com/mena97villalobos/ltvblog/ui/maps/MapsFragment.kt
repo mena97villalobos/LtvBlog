@@ -17,6 +17,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.LocationCallback
@@ -45,6 +47,12 @@ class MapsFragment : Fragment() {
     private lateinit var binding: FragmentMapsBinding
     private lateinit var map: GoogleMap
     private lateinit var currentLocationMarker: Marker
+    private val bluePinBitmap by lazy {
+        ResourcesCompat.getDrawable(resources, R.drawable.ic_pin_blue, null)!!.toBitmap()
+    }
+    private val redPinBitmap by lazy {
+        ResourcesCompat.getDrawable(resources, R.drawable.ic_pin_red, null)!!.toBitmap()
+    }
     private val geocoder by lazy { Geocoder(requireContext()) }
     private val fusedLocationProvider by lazy {
         LocationServices.getFusedLocationProviderClient(requireContext())
@@ -81,9 +89,7 @@ class MapsFragment : Fragment() {
                                 MarkerOptions()
                                     .position(currentPos)
                                     .title(getString(R.string.my_position))
-                                    .icon(
-                                        BitmapDescriptorFactory.defaultMarker(
-                                            BitmapDescriptorFactory.HUE_GREEN)))
+                                    .icon(BitmapDescriptorFactory.fromBitmap(bluePinBitmap)))
                             ?.let { marker -> currentLocationMarker = marker }
                     }
                 }
@@ -224,7 +230,11 @@ class MapsFragment : Fragment() {
                         results.forEach {
                             val currentPos = LatLng(it.latitude, it.longitude)
                             map.addMarker(
-                                MarkerOptions().position(currentPos).title(it.featureName))
+                                MarkerOptions()
+                                    .position(currentPos)
+                                    .title(it.featureName)
+                                    .icon(BitmapDescriptorFactory.fromBitmap(redPinBitmap))
+                            )
                         }
                     }
                     return true
