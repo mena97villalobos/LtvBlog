@@ -65,6 +65,8 @@ class MapsFragment : Fragment() {
                         val currentPos = LatLng(it.latitude, it.longitude)
                         if (this@MapsFragment::currentLocationMarker.isInitialized) {
                             currentLocationMarker.remove()
+                        } else {
+                            map.moveCamera(CameraUpdateFactory.newLatLng(currentPos))
                         }
                         map.addMarker(
                                 MarkerOptions()
@@ -74,7 +76,6 @@ class MapsFragment : Fragment() {
                                         BitmapDescriptorFactory.defaultMarker(
                                             BitmapDescriptorFactory.HUE_GREEN)))
                             ?.let { marker -> currentLocationMarker = marker }
-                        map.moveCamera(CameraUpdateFactory.newLatLng(currentPos))
                     }
                 }
             }
@@ -150,7 +151,7 @@ class MapsFragment : Fragment() {
     }
 
     private fun checkPermissions() {
-        if (checkLocationPermission(requireContext())) {
+        if (!checkLocationPermission(requireContext())) {
             if (shouldShowPermissionRationale(
                 requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) ||
                 shouldShowPermissionRationale(
