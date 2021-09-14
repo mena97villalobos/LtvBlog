@@ -5,13 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mena97villalobos.ltvblog.data.model.Blog
-import com.mena97villalobos.ltvblog.data.network.BlogsNetwork
 import com.mena97villalobos.ltvblog.data.repository.BlogsRepositoryImpl
 import com.mena97villalobos.ltvblog.data.usecases.BlogsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-
 
 class BlogsViewModel : ViewModel() {
 
@@ -27,8 +25,6 @@ class BlogsViewModel : ViewModel() {
 
     fun getAllBlogs() =
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                _blogs.postValue(blogsUseCase.execute())
-            }
+            withContext(Dispatchers.IO) { _blogs.postValue(blogsUseCase.execute()) }
         }
 }
