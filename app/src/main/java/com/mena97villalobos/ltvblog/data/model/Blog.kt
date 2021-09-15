@@ -6,7 +6,7 @@ import java.util.*
 
 data class Blog(
     val title: String,
-    val description: String,
+    val description: String?,
     val author: String,
     val date: String,
     val uuid: String,
@@ -27,7 +27,7 @@ data class Blog(
     fun getResizedImageURL(): String {
         val lastIndex = imageUrl.lastIndexOf('/')
         val imageName = imageUrl.substring(lastIndex, imageUrl.length)
-        val baseUrl = "https://bv-content.beenverified.com" // imageUrl.substring(0, lastIndex)
+        val baseUrl = imageUrl.substring(0, lastIndex)
         return "$baseUrl/60x0/filters:autojpg()$imageName"
     }
 }

@@ -5,5 +5,5 @@ import com.mena97villalobos.ltvblog.data.network.BlogsNetwork
 
 class BlogsRepositoryImpl : BlogsRepository {
 
-    override fun getAllBlogs(): List<Blog> = BlogsNetwork.getAllBlogs()
+    override suspend fun getAllBlogs(): List<Blog> = BlogsNetwork.getAllBlogs()
 }

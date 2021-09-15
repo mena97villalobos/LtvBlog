@@ -42,7 +42,10 @@ class BlogsFragment : Fragment() {
     }
 
     /** After all the observers have been setup fetch blogs data using the view model */
-    private fun initializeData() = viewModel.getAllBlogs()
+    private fun initializeData() {
+        // viewModel.getAllBlogs()
+        viewModel.getAllBlogsRetrofit()
+    }
 
     private fun setupAdapter(blogs: List<Blog>) {
         val adapter = BlogAdapter {
